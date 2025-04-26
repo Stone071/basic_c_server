@@ -38,4 +38,8 @@ int main(void)
     // Print out the human readable error and string source
     perror("Open socket failed\n");
   }
+
+
+
+  // close the connection
 }
