@@ -1,0 +1,19 @@
+h1 {
+    color: rgb(219, 207, 207);
+    text-align: center;
+    text-decoration-line: underline;
+}
+a {
+    color: rgb(0, 217, 255);
+    text-align: center;
+}
+p {
+    color: white;
+    text-align: center;
+}
+body {
+    background-color: #2c3136;
+}
+footer{
+    text-align: center;
+}
