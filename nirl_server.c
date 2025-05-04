@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+//#define DEBUG_MSGS 1
+
 #define NUM_BYTES         1024
 #define TCP_CORK_ENA         1
 #define TCP_CORK_DIS         0
@@ -94,8 +96,10 @@ int main()
             {
                 perror("RECV ERR");
             }
+            #ifdef DEBUG_MSGS
             // Print the request because I am curious.
-            //printf("\nHTTP REQUEST:\n%s", buffer);
+            printf("\nHTTP REQUEST:\n%s", buffer);
+            #endif
 
             // GET /file.html ....
             char* filename = buffer + 5;
@@ -146,13 +150,15 @@ int main()
                     // does not seem to affect anything.
                     char* pNext = append(rspBuf, OK_200, sizeof(OK_200));
                     
-                    // Put the file content in the buffer
+                    // Put the file content after the HTTP response in the buffer
                     read(opened_fd, pNext, fInfo->st_size);
 
                     // Send it off!
                     send(client_fd, rspBuf, bufSize, 0);
-
-                    printf("%s", rspBuf);
+                    
+                    #ifdef DEBUG_MSGS
+                    printf("\nRESPONSE BUFFER: %s\n", rspBuf); // debug purpose.
+                    #endif
                     
                     free(rspBuf);
                     free(fInfo);
